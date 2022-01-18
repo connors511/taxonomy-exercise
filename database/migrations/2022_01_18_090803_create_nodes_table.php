@@ -19,7 +19,7 @@ class CreateNodesTable extends Migration
             $table->string('name');
             $table->tinyInteger('height')->default(0);
             $table->boolean('is_manager')->default(0);
-            $table->string('metadata');
+            $table->string('metadata')->default('');
             $table->timestamps();
         });
     }

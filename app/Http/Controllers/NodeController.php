@@ -17,17 +17,21 @@ class NodeController extends Controller
 
     public function store(StoreNodeRequest $request)
     {
-        //
+        return new NodeResource(
+            Node::create($request->validated())->refresh()
+        );
     }
 
     public function show(Node $node)
     {
-        return new NodeResource($node);
+        return new NodeResource($node->load('children'));
     }
 
     public function update(UpdateNodeRequest $request, Node $node)
     {
-        //
+        $node->update($request->validated());
+
+        return new NodeResource($node);
     }
 
     public function destroy(Node $node)

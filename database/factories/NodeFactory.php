@@ -11,9 +11,9 @@ class NodeFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-//            'parent_id' => Node::factory(),
+            'parent_id' => Node::factory()->root(),
             'is_manager' => $this->faker->boolean(),
-            'height' => fn ($attr) => ($attr['parent_id']?->height ?? 0) + 1,
+            'height' => fn ($attr) => ($attr['parent_id']?->height ?? -1) + 1,
             'metadata' => fn ($attr) => $attr['is_manager']
                 ? ['department' => $this->faker->company]
                 : ['language' => $this->faker->languageCode],
@@ -25,6 +25,7 @@ class NodeFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'parent_id' => null,
+                'height' => 0,
             ];
         });
     }
